@@ -13,7 +13,7 @@ public class Contact {
     public Contact(String contactID, String firstName, String lastName,
                    String middleName, String suffix, String address,
                    String city, String state, String zipcode, String email,
-                   String birthDate, long phone, int ssn, String password, String military,
+                   String birthDate, long phone, String ssn, String password, String military,
                    String createDateTime, String updateDateTime, String id, String lead_id,
                    long secondaryPhone, long phoneType1, long phoneType2) {
 
@@ -70,8 +70,8 @@ public class Contact {
     private String birthDate;
     @Column(name = "Phone")
     private long phone;
-    @Column(name = "SSN")
-    private int ssn;
+    @Column(name = "SSN",length=10)
+    private String ssn;
     @Column(name = "Password")
     private String password;
     @Column(name = "Military")
@@ -187,11 +187,11 @@ public class Contact {
         this.phone = phone;
     }
 
-    public int getSsn() {
+    public String getSsn() {
         return ssn;
     }
 
-    public void setSsn(int ssn) {
+    public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 

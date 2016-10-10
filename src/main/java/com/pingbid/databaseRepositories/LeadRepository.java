@@ -1,6 +1,5 @@
 package com.pingbid.databaseRepositories;
 
-import com.pingbid.databaseModel.Contact;
 import com.pingbid.databaseModel.Lead;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,5 +14,11 @@ import java.util.List;
 @Repository
 public interface LeadRepository extends JpaRepository<Lead,Integer> {
 
-    List<Contact> findByLeadIDOrderById(String leadid);
+    public List<Lead> findByLeadIDOrderById(String leadid);
+
+    public Lead findOne(Integer id);
+
+    public Lead save(Lead lead);
+
+
 }

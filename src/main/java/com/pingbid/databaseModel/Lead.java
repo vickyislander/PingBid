@@ -1,6 +1,10 @@
 package com.pingbid.databaseModel;
 
+import javafx.beans.binding.IntegerBinding;
+
 import javax.persistence.*;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * Created by rvignesh on 9/29/2016.
@@ -81,9 +85,9 @@ public class Lead {
     @Column(name = "alternate_email")
     private String alternateEmail;
     @Column(name = "ssn")
-    private int ssn;
+    private String ssn;
     @Column(name = "date_of_birth")
-    private String dateOfBirth;
+    private Date dateOfBirth;
     @Column(name = "address1")
     private String address1;
     @Column(name = "address2")
@@ -93,7 +97,7 @@ public class Lead {
     @Column(name = "state")
     private String state;
     @Column(name = "zip")
-    private int zip;
+    private String zip;
     @Column(name = "country_code")
     private String countryCode;
     @Column(name = "phone_home")
@@ -151,7 +155,7 @@ public class Lead {
     @Column(name = "bank_phone")
     private long bankPhone;
     @Column(name = "months_at_bank")
-    private String monthsAtBank;
+    private int monthsAtBank;
     @Column(name = "bank_routing_number")
     private long bankRoutingNumber;
     @Column(name = "bank_account_number")
@@ -211,15 +215,54 @@ public class Lead {
     @Column(name = "rawdata")
     private String rawdata;
 
+    public Lead(Map<String,String> createLead) {
+        this.clientIp= createLead.get("client_ip");
+        this.loanAmount=Integer.parseInt(createLead.get("loan_amount"));
+        this.firstName =createLead.get("first_name");
+        this.lastName=createLead.get("last_name");
+        this.email=createLead.get("email");
+        this.ssn=createLead.get("ssn");
+        this.dateOfBirth= new Date(); // temporary change it after requirement createLead.get("date_of_birth");
+        this.address1=createLead.get("address1");
+        this.city=createLead.get("city");
+        this.state=createLead.get("state");
+        this.zip=createLead.get("zip");
+        this.countryCode=createLead.get("country_code");
+        this.phoneHome= Long.parseLong(createLead.get("phone_home"));
+        this.phoneWork=Long.parseLong(createLead.get("phone_work"));
+        this.isMilitary=Integer.parseInt(createLead.get("is_military"));
+        this.driversLicenseState=createLead.get("drivers_license_state");
+        //this.drivers_license_number=createLead.get("drivers_license_number");
+        this.ownHome=createLead.get("own_home");
+        this.monthsAtAddress=Integer.parseInt(createLead.get("months_at_address"));
+        this.incomeType=createLead.get("income_type");
+        this.jobTitle=createLead.get("job_title");
+        this.payPerPeriod=Integer.parseInt(createLead.get("pay_per_period"));
+        this.monthlyIncome=Integer.parseInt(createLead.get("monthly_income"));
+        this.payFrequency=createLead.get("pay_frequency");
+        this.payDay1=createLead.get("pay_day1");
+        this.payDay2=createLead.get("pay_day2");
+        this.employerName=createLead.get("employer_name");
+        this.monthsEmployed=Integer.parseInt(createLead.get("months_employed"));
+        this.bank=createLead.get("bank");
+        this.bankPhone=Long.parseLong(createLead.get("bank_phone"));
+        this.monthsAtBank=Integer.parseInt(createLead.get("months_at_bank"));
+        this.bankAccountType=createLead.get("bank_account_type");
+        this.directDeposit=Integer.parseInt(createLead.get("direct_deposit"));
+       // this.contactTime=createLead.get("contact_time");
+        this.originatingUrl=createLead.get("originating_url");
+        this.clientUrl=createLead.get("client_url");
+        this.userAgent=createLead.get("user_agent");
+        this.isLive=Integer.parseInt(createLead.get("is_live"));
+        this.price=Double.parseDouble(createLead.get("price"));
+//        this.buyin=createLead.get("buyin");
+//        this.subid=createLead.get("subid");
+        this.sellerGroup=Integer.parseInt(createLead.get("seller_group"));
+        this.scorable=Integer.parseInt(createLead.get("scorable"));
+        this.leadID=createLead.get("LeadID");
+    }
+
     protected Lead(){}
-
-    public String getLeadID() {
-        return leadID;
-    }
-
-    public void setLeadID(String leadID) {
-        this.leadID = leadID;
-    }
 
     public int getId() {
         return id;
@@ -227,6 +270,14 @@ public class Lead {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getLeadID() {
+        return leadID;
+    }
+
+    public void setLeadID(String leadID) {
+        this.leadID = leadID;
     }
 
     public String getVendorLeadid() {
@@ -485,19 +536,19 @@ public class Lead {
         this.alternateEmail = alternateEmail;
     }
 
-    public int getSsn() {
+    public String getSsn() {
         return ssn;
     }
 
-    public void setSsn(int ssn) {
+    public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -533,11 +584,11 @@ public class Lead {
         this.state = state;
     }
 
-    public int getZip() {
+    public String getZip() {
         return zip;
     }
 
-    public void setZip(int zip) {
+    public void setZip(String zip) {
         this.zip = zip;
     }
 
@@ -765,11 +816,11 @@ public class Lead {
         this.bankPhone = bankPhone;
     }
 
-    public String getMonthsAtBank() {
+    public int getMonthsAtBank() {
         return monthsAtBank;
     }
 
-    public void setMonthsAtBank(String monthsAtBank) {
+    public void setMonthsAtBank(int monthsAtBank) {
         this.monthsAtBank = monthsAtBank;
     }
 

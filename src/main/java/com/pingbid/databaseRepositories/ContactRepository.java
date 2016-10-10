@@ -14,4 +14,5 @@ import java.util.List;
 public interface ContactRepository extends JpaRepository<Contact,Integer> {
 
     List<Contact> findBySsnOrderById(long ssn);
+
 }

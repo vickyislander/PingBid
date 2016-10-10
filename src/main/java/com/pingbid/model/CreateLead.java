@@ -1,104 +1,166 @@
 package com.pingbid.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.Date;
+import java.util.Map;
+
 /**
  * Created by vignesh on 9/22/2016.
  */
 
+@JsonIgnoreProperties( {"client_ip","loan_amount","ssn","date_of_birth","address1","city","zip","state","country_code","phone_home",
+"is_military","drivers_license_state","drivers_license_number","own_home","months_at_address","income_type","job_title","pay_per_period",
+ "monthly_income","pay_frequency","pay_day1","pay_day2","employer_name","months_employed","bank","bank_phone months_at_bank",
+  "bank_account_type", "direct_deposit","contact_time","originating_url","client_url","user_agent","is_live","price","buyin","subid","scorable"})
 
 public class CreateLead {
 
+    @JsonIgnore
     private final String client_ip;
+    @JsonIgnore
     private final int loan_amount;
-    private final String first_name;
-    private final String last_name;
-    private final String email;
+    @JsonIgnore
     private final String ssn;
+    @JsonIgnore
     private final String date_of_birth;
+    @JsonIgnore
     private final String address1;
+    @JsonIgnore
     private final String city;
+    @JsonIgnore
     private final String zip;
+    @JsonIgnore
     private final String state;
+    @JsonIgnore
     private final String country_code;
+    @JsonIgnore
     private final String phone_home;
+    @JsonIgnore
     private final String phone_work;
+    @JsonIgnore
     private final String is_military;
+    @JsonIgnore
     private final String drivers_license_state;
+    @JsonIgnore
     private final String drivers_license_number;
+    @JsonIgnore
     private final String own_home;
+    @JsonIgnore
     private final int months_at_address;
+    @JsonIgnore
     private final String income_type;
+    @JsonIgnore
     private final String job_title;
+    @JsonIgnore
     private final String pay_per_period;
+    @JsonIgnore
     private final int monthly_income;
+    @JsonIgnore
     private final String pay_frequency;
+    @JsonIgnore
     private final String pay_day1;
+    @JsonIgnore
     private final String pay_day2;
+    @JsonIgnore
     private final String employer_name;
+    @JsonIgnore
     private final int months_employed;
+    @JsonIgnore
     private final String bank;
+    @JsonIgnore
     private final String bank_phone;
+    @JsonIgnore
     private final int months_at_bank;
+    @JsonIgnore
     private final String bank_account_type;
+    @JsonIgnore
     private final String direct_deposit;
+    @JsonIgnore
     private final String contact_time;
+    @JsonIgnore
     private final String originating_url;
+    @JsonIgnore
     private final String client_url;
+    @JsonIgnore
     private final String user_agent;
+    @JsonIgnore
     private final String is_live;
+    @JsonIgnore
     private final String price;
+    @JsonIgnore
     private final String buyin;
+    @JsonIgnore
     private final String subid;
-    private final String seller_group;
+    @JsonIgnore
     private final String scorable;
+
+    private final String seller_group;
+
+    private final String first_name;
+
+    private final String last_name;
+
+    private final String email;
+
     private final String LeadID;
 
-    public CreateLead(String createLead) {
+    private final Date transaction_time;
 
-        this.client_ip= (createLead==null)?null:createLead.split("client_ip=")[1].split("&")[0];
-        this.loan_amount=(createLead==null)?null:Integer.parseInt(createLead.split("loan_amount=")[1].split("&")[0]);
-        this.first_name =(createLead==null)?null:createLead.split("first_name=")[1].split("&")[0];
-        this.last_name=(createLead==null)?null:createLead.split("last_name=")[1].split("&")[0];
-        this.email=(createLead==null)?null:createLead.split("email=")[1].split("&")[0];
-        this.ssn=(createLead==null)?null:createLead.split("ssn=")[1].split("&")[0];
-        this.date_of_birth=(createLead==null)?null:createLead.split("date_of_birth=")[1].split("&")[0];
-        this.address1=(createLead==null)?null:createLead.split("address1=")[1].split("&")[0];
-        this.city=(createLead==null)?null:createLead.split("city=")[1].split("&")[0];
-        this.state=(createLead==null)?null:createLead.split("state=")[1].split("&")[0];
-        this.zip=(createLead==null)?null:createLead.split("zip=")[1].split("&")[0];
-        this.country_code=(createLead==null)?null:createLead.split("country_code=")[1].split("&")[0];
-        this.phone_home=(createLead==null)?null:createLead.split("phone_home=")[1].split("&")[0];
-        this.phone_work=(createLead==null)?null:createLead.split("phone_work=")[1].split("&")[0];
-        this.is_military=(createLead==null)?null:createLead.split("is_military=")[1].split("&")[0];
-        this.drivers_license_state=(createLead==null)?null:createLead.split("drivers_license_state=")[1].split("&")[0];
-        this.drivers_license_number=(createLead==null)?null:createLead.split("drivers_license_number=")[1].split("&")[0];
-        this.own_home=(createLead==null)?null:createLead.split("own_home=")[1].split("&")[0];
-        this.months_at_address=(createLead==null)?null:Integer.parseInt(createLead.split("months_at_address=")[1].split("&")[0]);
-        this.income_type=(createLead==null)?null:createLead.split("income_type=")[1].split("&")[0];
-        this.job_title=(createLead==null)?null:createLead.split("job_title=")[1].split("&")[0];
-        this.pay_per_period=(createLead==null)?null:createLead.split("pay_per_period=")[1].split("&")[0];
-        this.monthly_income=(createLead==null)?null:Integer.parseInt(createLead.split("monthly_income=")[1].split("&")[0]);
-        this.pay_frequency=(createLead==null)?null:createLead.split("pay_frequency=")[1].split("&")[0];
-        this.pay_day1=(createLead==null)?null:createLead.split("pay_day1=")[1].split("&")[0];
-        this.pay_day2=(createLead==null)?null:createLead.split("pay_day2=")[1].split("&")[0];
-        this.employer_name=(createLead==null)?null:createLead.split("employer_name=")[1].split("&")[0];
-        this.months_employed=(createLead==null)?null:Integer.parseInt(createLead.split("months_employed=")[1].split("&")[0]);
-        this.bank=(createLead==null)?null:createLead.split("bank=")[1].split("&")[0];
-        this.bank_phone=(createLead==null)?null:createLead.split("bank_phone=")[1].split("&")[0];
-        this.months_at_bank=(createLead==null)?null:Integer.parseInt(createLead.split("months_at_bank=")[1].split("&")[0]);
-        this.bank_account_type=(createLead==null)?null:createLead.split("bank_account_type=")[1].split("&")[0];
-        this.direct_deposit=(createLead==null)?null:createLead.split("direct_deposit=")[1].split("&")[0];
-        this.contact_time=(createLead==null)?null:createLead.split("contact_time=")[1].split("&")[0];
-        this.originating_url=(createLead==null)?null:createLead.split("originating_url=")[1].split("&")[0];
-        this.client_url=(createLead==null)?null:createLead.split("client_url=")[1].split("&")[0];
-        this.user_agent=(createLead==null)?null:createLead.split("user_agent=")[1].split("&")[0];
-        this.is_live=(createLead==null)?null:createLead.split("is_live=")[1].split("&")[0];
-        this.price=(createLead==null)?null:createLead.split("price=")[1].split("&")[0];
-        this.buyin=(createLead==null)?null:createLead.split("buyin=")[1].split("&")[0];
-        this.subid=(createLead==null)?null:createLead.split("subid=")[1].split("&")[0];
-        this.seller_group=(createLead==null)?null:createLead.split("seller_group=")[1].split("&")[0];
-        this.scorable=(createLead==null)?null:createLead.split("scorable=")[1].split("&")[0];
-        this.LeadID=(createLead==null)?null:createLead.split("LeadID=")[1].split("&")[0];
+    private String status;
 
+    private String message;
+
+
+    public CreateLead(Map<String,String> createLead) {
+        this.client_ip= createLead.get("client_ip");
+        this.loan_amount=Integer.parseInt(createLead.get("loan_amount"));
+        this.first_name =createLead.get("first_name");
+        this.last_name=createLead.get("last_name");
+        this.email=createLead.get("email");
+        this.ssn=createLead.get("ssn");
+        this.date_of_birth=createLead.get("date_of_birth");
+        this.address1=createLead.get("address1");
+        this.city=createLead.get("city");
+        this.state=createLead.get("state");
+        this.zip=createLead.get("zip");
+        this.country_code=createLead.get("country_code");
+        this.phone_home=createLead.get("phone_home");
+        this.phone_work=createLead.get("phone_work");
+        this.is_military=createLead.get("is_military");
+        this.drivers_license_state=createLead.get("drivers_license_state");
+        this.drivers_license_number=createLead.get("drivers_license_number");
+        this.own_home=createLead.get("own_home");
+        this.months_at_address=Integer.parseInt(createLead.get("months_at_address"));
+        this.income_type=createLead.get("income_type");
+        this.job_title=createLead.get("job_title");
+        this.pay_per_period=createLead.get("pay_per_period");
+        this.monthly_income=Integer.parseInt(createLead.get("monthly_income"));
+        this.pay_frequency=createLead.get("pay_frequency");
+        this.pay_day1=createLead.get("pay_day1");
+        this.pay_day2=createLead.get("pay_day2");
+        this.employer_name=createLead.get("employer_name");
+        this.months_employed=Integer.parseInt(createLead.get("months_employed"));
+        this.bank=createLead.get("bank");
+        this.bank_phone=createLead.get("bank_phone");
+        this.months_at_bank=Integer.parseInt(createLead.get("months_at_bank"));
+        this.bank_account_type=createLead.get("bank_account_type");
+        this.direct_deposit=createLead.get("direct_deposit");
+        this.contact_time=createLead.get("contact_time");
+        this.originating_url=createLead.get("originating_url");
+        this.client_url=createLead.get("client_url");
+        this.user_agent=createLead.get("user_agent");
+        this.is_live=createLead.get("is_live");
+        this.price=createLead.get("price");
+        this.buyin=createLead.get("buyin");
+        this.subid=createLead.get("subid");
+        this.seller_group=createLead.get("seller_group");
+        this.scorable=createLead.get("scorable");
+        this.LeadID=createLead.get("LeadID");
+        this.transaction_time=new Date();
+        this.status="Rejected";
+        this.message="Error, problem with data fields";
     }
 
     public String getClient_ip() {
@@ -275,5 +337,17 @@ public class CreateLead {
 
     public String getLeadID() {
         return LeadID;
+    }
+
+    public Date getTransaction_time() {
+        return transaction_time;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
     }
 }

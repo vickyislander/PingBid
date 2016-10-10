@@ -1,12 +1,13 @@
 package com.pingbid.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by rvignesh on 9/24/2016.
  */
 
-@JsonIgnoreProperties(value = { "softpull_score" })
+
 public class Softpull {
 
 
@@ -20,6 +21,7 @@ public class Softpull {
     private final String pay_frequency;
     private final int loan_amount;
     private final int monthly_income;
+    @JsonIgnore
     private int softpull_score;
 
     public Softpull(String leadid, int age, String fico_pool, String state, String own_home, int months_at_address, int months_at_bank, String pay_frequency, int loan_amount, int monthly_income){
