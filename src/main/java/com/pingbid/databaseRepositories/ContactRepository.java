@@ -11,8 +11,8 @@ import java.util.List;
  * Created by rvignesh on 9/28/2016.
  */
 @Repository
-public interface ContactRepository extends JpaRepository<Contact,Integer> {
+public interface ContactRepository  extends JpaRepository<Contact, Integer> {
 
-    List<Contact> findBySsnOrderById(long ssn);
+    List<Contact> findBySsn(String ssn);
 
 }

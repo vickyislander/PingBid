@@ -12,8 +12,8 @@ import java.util.Map;
 
 @JsonIgnoreProperties( {"client_ip","loan_amount","ssn","date_of_birth","address1","city","zip","state","country_code","phone_home",
 "is_military","drivers_license_state","drivers_license_number","own_home","months_at_address","income_type","job_title","pay_per_period",
- "monthly_income","pay_frequency","pay_day1","pay_day2","employer_name","months_employed","bank","bank_phone months_at_bank",
-  "bank_account_type", "direct_deposit","contact_time","originating_url","client_url","user_agent","is_live","price","buyin","subid","scorable"})
+"monthly_income","pay_frequency","pay_day1","pay_day2","employer_name","months_employed","bank","bank_phone months_at_bank",
+"bank_account_type", "direct_deposit","contact_time","originating_url","client_url","user_agent","is_live","price","buyin","subid","scorable"})
 
 public class CreateLead {
 

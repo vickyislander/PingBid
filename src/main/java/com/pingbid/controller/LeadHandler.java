@@ -50,9 +50,8 @@ public class LeadHandler {
     @RequestMapping(method= RequestMethod.POST,value="/pinglead", consumes="text/plain",produces = "application/json")
     public CreateLead createLead(@RequestBody String createLead) {
         CreateLead leadData = new CreateLead(utilities.stringSplitter(createLead));
-       /* List<Contact> contacts = contactRepository.findBySsnOrderById(Integer.parseInt(leadData.getSsn())); // 1 is fico pool
+        List<Contact> contacts = contactRepository.findBySsn(leadData.getSsn()); // 1 is fico pool
         System.out.println("Size is "+contacts.size());
-        System.out.println(contacts.get(0).getContactID()); */
         Lead lead = new Lead(utilities.stringSplitter(createLead));
         leadRepository.save(lead);
         System.out.println(leadData.getStatus()+" : "+leadData.getTransaction_time()+" : "+leadData.getMessage());
