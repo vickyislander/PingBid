@@ -6,11 +6,12 @@ import com.pingbid.databaseRepositories.LeadRepository;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Component;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,14 +28,24 @@ public class CommonUtils {
 
     Random random = new Random();
 
+    final DateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+
+    Calendar birthDate = Calendar.getInstance();
+
     public int getageFromDOB(String date) {
         LocalDate today = LocalDate.now();
-        LocalDate birthday = LocalDate.of(1960, 1, 1);
-        Period p = Period.between(birthday, today);
-        return p.getYears();
+        try {
+            birthDate.setTime(format.parse(date));
+            LocalDate birthday = LocalDate.of(birthDate.get(Calendar.YEAR), birthDate.get(Calendar.MONTH), birthDate.get(Calendar.DATE));//int year, int month, int dayOfMonth
+            Period p = Period.between(birthday, today);
+            return p.getYears();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
-    public String generateLead(LeadRepository leadrepository){
+    /*public String generateLead(LeadRepository leadrepository){
         boolean size = false;
         String leadid;
         do {
@@ -44,7 +55,7 @@ public class CommonUtils {
             }
         } while (!size);
         return leadid;
-    }
+    } */
 
     public Map<String,String> stringSplitter(String createLead){
 

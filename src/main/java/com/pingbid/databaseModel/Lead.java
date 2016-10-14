@@ -1,6 +1,8 @@
 package com.pingbid.databaseModel;
 
 import javafx.beans.binding.IntegerBinding;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -1054,5 +1056,29 @@ public class Lead {
 
     public void setRawdata(String rawdata) {
         this.rawdata = rawdata;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        final int PRIME = 31;
+        return new HashCodeBuilder(getId()%2==0?getId()+1:getId(), PRIME).toHashCode();
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (o == null)
+            return false;
+
+        if (o == this)
+            return true;
+
+        if (o.getClass() != getClass())
+            return false;
+
+        Lead lead = (Lead) o;
+
+        return new EqualsBuilder().
+                append(getId(), lead.getId()).
+                isEquals();
     }
 }

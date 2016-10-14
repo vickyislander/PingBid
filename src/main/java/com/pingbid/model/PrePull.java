@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 
 
-public class Softpull {
+public class PrePull {
 
 
     private final String leadid;
@@ -22,9 +22,10 @@ public class Softpull {
     private final int loan_amount;
     private final int monthly_income;
     @JsonIgnore
-    private int softpull_score;
+    private int prePull_score;
 
-    public Softpull(String leadid, int age, String fico_pool, String state, String own_home, int months_at_address, int months_at_bank, String pay_frequency, int loan_amount, int monthly_income){
+
+    public PrePull(String leadid, int age, String fico_pool, String state, String own_home, int months_at_address, int months_at_bank, String pay_frequency, int loan_amount, int monthly_income){
         this.leadid=leadid;
         this.age=age;
         this.fico_pool=fico_pool;
@@ -77,11 +78,12 @@ public class Softpull {
         return monthly_income;
     }
 
-    public int getSoftpull_score() {
-        return softpull_score;
+    public int getPrePull_score() {
+        return prePull_score;
     }
 
-    public void setSoftpull_score(int softpull_score) {
-        this.softpull_score = softpull_score;
+    public void setPrePull_score(int prePull_score) {
+        this.prePull_score = prePull_score;
     }
+
 }

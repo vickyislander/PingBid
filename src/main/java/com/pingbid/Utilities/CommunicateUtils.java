@@ -1,22 +1,22 @@
-package com.pingbid.communicate;
+package com.pingbid.Utilities;
 
 /**
  * Created by rvignesh on 10/9/2016.
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pingbid.model.Softpull;
+import com.pingbid.model.PrePull;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Map;
 
-public class Communicate{
+public class CommunicateUtils {
 
     Map<String,Integer> data = null;
 
-        public Integer post(URL postUrl, Softpull softpull){
+        public Integer post(URL postUrl, PrePull prePull){
 
             try{
 
@@ -38,7 +38,7 @@ public class Communicate{
                 DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 
                 // 5.2 Copy Content "JSON" into
-                mapper.writeValue((DataOutput) wr, softpull);
+                mapper.writeValue((DataOutput) wr, prePull);
 
                 // 5.3 Send the request
                 wr.flush();

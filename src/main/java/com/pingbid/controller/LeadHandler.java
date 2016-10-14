@@ -1,25 +1,22 @@
 package com.pingbid.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pingbid.Utilities.CommonUtils;
-import com.pingbid.communicate.CommunicationService;
-import com.pingbid.databaseModel.Contact;
+import com.pingbid.services.CommunicationService;
 import com.pingbid.databaseModel.Lead;
-import com.pingbid.databaseRepositories.ContactRepository;
-import com.pingbid.databaseRepositories.LeadRepository;
 import com.pingbid.model.CreateLead;
-import com.pingbid.model.Softpull;
+import com.pingbid.model.PrePull;
+import com.pingbid.services.Contactservice;
+import com.pingbid.services.InputDataFilterService;
+import com.pingbid.services.Leadservice;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+import java.util.Map;
 
 
 /**
@@ -27,19 +24,8 @@ import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
  */
 
 @RestController
-public class LeadHandler {
-
-
-    private ContactRepository contactRepository;
-
-    private LeadRepository leadRepository;
-
-
-    @Autowired
-    public LeadHandler(ContactRepository contactRepository,LeadRepository leadRepository) {
-        this.contactRepository = contactRepository;
-        this.leadRepository = leadRepository;
-    }
+@EnableCaching
+public class LeadHandler extends BaseController {
 
     @Autowired
     private CommonUtils utilities;
@@ -47,16 +33,36 @@ public class LeadHandler {
     @Autowired
     private CommunicationService communicationService;
 
+    @Autowired
+    private Contactservice contactservice;
+
+    @Autowired
+    private Leadservice leadservice;
+
+    @Autowired
+    private InputDataFilterService inputDataFilterService;
+
     @RequestMapping(method= RequestMethod.POST,value="/pinglead", consumes="text/plain",produces = "application/json")
     public CreateLead createLead(@RequestBody String createLead) {
-        CreateLead leadData = new CreateLead(utilities.stringSplitter(createLead));
-        List<Contact> contacts = contactRepository.findBySsn(leadData.getSsn()); // 1 is fico pool
-        System.out.println("Size is "+contacts.size());
-        Lead lead = new Lead(utilities.stringSplitter(createLead));
-        leadRepository.save(lead);
+        //split the string and save the values in map as key value pairs
+        Map<String,String> leadDetails = utilities.stringSplitter(createLead);
+        //filter Input data
+        inputDataFilterService.checkConditions(leadDetails);
+        //Initialize leadData POJO Class
+        CreateLead leadData = new CreateLead(leadDetails);
+        //Check if contact already exists in contact table by using ssn
+        contactservice.checkSSN(leadData); // 1 is fico pool
+        //Initialize the lead Database model class
+        Lead lead = new Lead(leadDetails);
+        //save the lead object to DB
+        leadservice.save(lead);
         System.out.println(leadData.getStatus()+" : "+leadData.getTransaction_time()+" : "+leadData.getMessage());
-        Softpull softpull = new Softpull(utilities.generateLead(leadRepository),utilities.getageFromDOB(leadData.getDate_of_birth()),"D",leadData.getState(),leadData.getOwn_home(),leadData.getMonths_at_address(),leadData.getMonths_at_bank(),leadData.getPay_frequency(),leadData.getLoan_amount(),leadData.getMonthly_income());
-        communicationService.doSoftpull(softpull);
+        //Intialize prePull POJO class
+        PrePull prePull = new PrePull("LeadID",utilities.getageFromDOB(leadData.getDate_of_birth()),"D",leadData.getState(),leadData.getOwn_home(),leadData.getMonths_at_address(),leadData.getMonths_at_bank(),leadData.getPay_frequency(),leadData.getLoan_amount(),leadData.getMonthly_income());
+        //Do prepull
+        communicationService.doPrepullScore(prePull);
+
         return leadData;
     }
+
 }
