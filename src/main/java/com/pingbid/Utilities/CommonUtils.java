@@ -65,7 +65,10 @@ public class CommonUtils {
 
         Map<String, String> leadDetails =
                 words.map(ele -> ele.split("="))
+                     .filter(elem -> elem.length==2)
                      .collect(Collectors.toMap(ele -> ele[0],ele -> ele[1]));
+
+        //can also check for  mandatory fields to be present
 
         leadDetails.forEach((k,v)->{
             System.out.println("key : "+k+" Value"+v);

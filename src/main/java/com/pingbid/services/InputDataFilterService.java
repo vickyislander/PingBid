@@ -3,7 +3,10 @@ package com.pingbid.services;
 import com.pingbid.Utilities.CommonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Created by rvignesh on 10/15/2016. MIrth64$
@@ -13,17 +16,37 @@ public class InputDataFilterService {
     @Autowired
     private CommonUtils commonUtils;
 
-    public void checkConditions(Map<String,String> dataToBeFiltered){
-
-        //dataToBeFiltered.entrySet().stream()
-                       // .filter(map -> map.getKey().contentEquals("date_of_birth")?commonUtils.getageFromDOB(map.getValue())>18:)
-                       // .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue());
+    public void checkConditions(Map<String, String> dataToBeFiltered) {
 
 
-
-
+      dataToBeFiltered.entrySet().stream()
+           //.filter(this::filterNotMandatoryFields)
+           .filter((map)-> map.getKey().contentEquals("date_of_birth") && Integer.parseInt(map.getValue())>18)
+           .filter((map)-> map.getKey().contentEquals("scorable") && Integer.parseInt(map.getValue())==0 || Integer.parseInt(map.getValue())==1)
+           .filter((map)-> map.getKey().contentEquals("is_military") && Integer.parseInt(map.getValue())==0 || Integer.parseInt(map.getValue())==1)
+           .filter((map)-> map.getKey().contentEquals("own_home")  && Integer.parseInt(map.getValue())==0 || Integer.parseInt(map.getValue())==1)
+           .filter((map)-> map.getKey().contentEquals("is_live")  && Integer.parseInt(map.getValue())==0 || Integer.parseInt(map.getValue())==1)
+           .filter((map)-> map.getKey().contentEquals("buyin")  && Integer.parseInt(map.getValue())==0 || Integer.parseInt(map.getValue())==1)
+           .filter((map)-> map.getKey().contentEquals("pay_frequency") && map.getValue().equalsIgnoreCase("BI_WEEKLY") || map.getValue().equalsIgnoreCase("WEEKLY") || map.getValue().equalsIgnoreCase("TWICE_PER_MONTH") || map.getValue().equalsIgnoreCase("MONTHLY") || map.getValue().equalsIgnoreCase("OTHER") )
+           .filter((map)-> map.getKey().contentEquals("zip") && map.getValue().length()<5)
+           .filter((map)-> map.getKey().contentEquals("date_of_birth") && Integer.parseInt(map.getValue())>18)
+           .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
 
     }
+
+
+
+
+
+
+
+
+
+
+    /*public  filterNotMandatoryFields() {
+        //return p -> p.getAge() > 18 && p.getGender().equalsIgnoreCase("F");
+        return (map) -> map.getKey() == "";
+    }*/
 
     /*
 
