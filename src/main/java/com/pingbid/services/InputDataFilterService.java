@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -16,11 +18,13 @@ public class InputDataFilterService {
     @Autowired
     private CommonUtils commonUtils;
 
+    Map<String, String> dataToBeFiltered =null;
+
+    String message = "";
+
     public void checkConditions(Map<String, String> dataToBeFiltered) {
 
-
       dataToBeFiltered.entrySet().stream()
-           //.filter(this::filterNotMandatoryFields)
            .filter((map)-> map.getKey().contentEquals("date_of_birth") && Integer.parseInt(map.getValue())>18)
            .filter((map)-> map.getKey().contentEquals("scorable") && Integer.parseInt(map.getValue())==0 || Integer.parseInt(map.getValue())==1)
            .filter((map)-> map.getKey().contentEquals("is_military") && Integer.parseInt(map.getValue())==0 || Integer.parseInt(map.getValue())==1)
@@ -29,10 +33,26 @@ public class InputDataFilterService {
            .filter((map)-> map.getKey().contentEquals("buyin")  && Integer.parseInt(map.getValue())==0 || Integer.parseInt(map.getValue())==1)
            .filter((map)-> map.getKey().contentEquals("pay_frequency") && map.getValue().equalsIgnoreCase("BI_WEEKLY") || map.getValue().equalsIgnoreCase("WEEKLY") || map.getValue().equalsIgnoreCase("TWICE_PER_MONTH") || map.getValue().equalsIgnoreCase("MONTHLY") || map.getValue().equalsIgnoreCase("OTHER") )
            .filter((map)-> map.getKey().contentEquals("zip") && map.getValue().length()<5)
-           .filter((map)-> map.getKey().contentEquals("date_of_birth") && Integer.parseInt(map.getValue())>18)
            .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
 
+        this.dataToBeFiltered=dataToBeFiltered;
+
+        String[] arr = new String[7];
+
+
+
+
     }
+
+
+    public boolean containsKey(String key) {
+        if(dataToBeFiltered.containsKey(key)){
+            message = message;
+        }else{
+            message = message+key;
+        }
+    }
+
 
 
 
