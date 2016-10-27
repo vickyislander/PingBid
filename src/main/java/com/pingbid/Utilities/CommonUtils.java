@@ -59,8 +59,6 @@ public class CommonUtils {
 
     public Map<String,String> stringSplitter(String createLead){
 
-        //return (createLead==null)?null:createLead.split("client_ip=")[1].split("&")[0];
-
         Stream<String> words = Stream.of(createLead.split("&"));
 
         Map<String, String> leadDetails =
@@ -76,6 +74,44 @@ public class CommonUtils {
 
         return leadDetails;
 
+    }
+
+    public boolean isInteger(String s) {
+        return isInteger(s,10);
+    }
+
+    public boolean isInteger(String s, int radix) {
+        if(s.isEmpty()) return false;
+        for(int i = 0; i < s.length(); i++) {
+            if(i == 0 && s.charAt(i) == '-') {
+                if(s.length() == 1) return false;
+                else continue;
+            }
+            if(Character.digit(s.charAt(i),radix) < 0) return false;
+        }
+        return true;
+    }
+
+    public static String generateLeadID(Map<String,String> leadDetails) {
+        final int prime = 31;
+        int result = 1;
+        String email = leadDetails.get("email");
+        String fName = leadDetails.get("first_name");
+        String lName = leadDetails.get("last_name");
+        String zip = leadDetails.get("zip");
+        String prefix = leadDetails.get("P");
+
+
+        result = prime * result + ((email == null) ? 0 : email.toLowerCase().hashCode());
+        result = prime * result + ((fName == null) ? 0 : fName.toLowerCase().hashCode());
+        result = prime * result + ((lName == null) ? 0 : lName.toLowerCase().hashCode());
+        result = prime * result + ((zip == null)   ? 0 : zip.toLowerCase().hashCode());
+        result = prime * result + ((prefix == null) ? 0 : prefix.toLowerCase().hashCode());
+
+        if (result < 0) {
+            return prefix + "T" + ("" + result).substring(1);
+        }
+        return prefix + "B" + result;
     }
 
 

@@ -46,6 +46,8 @@ public class LeadHandler extends BaseController {
     public CreateLead createLead(@RequestBody String createLead) {
         //split the string and save the values in map as key value pairs
         Map<String,String> leadDetails = utilities.stringSplitter(createLead);
+        //generate leadid based on email,firstName,lastName,zipcode
+        utilities.generateLeadID(leadDetails);
         //filter Input data
         inputDataFilterService.checkConditions(leadDetails);
         //Initialize leadData POJO Class
