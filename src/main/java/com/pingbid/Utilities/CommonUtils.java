@@ -99,7 +99,7 @@ public class CommonUtils {
         String fName = leadDetails.get("first_name");
         String lName = leadDetails.get("last_name");
         String zip = leadDetails.get("zip");
-        String prefix = leadDetails.get("P");
+        String prefix = "P";
 
 
         result = prime * result + ((email == null) ? 0 : email.toLowerCase().hashCode());

@@ -60,64 +60,16 @@ public class InputDataFilterService {
         }
     }
 
-    /*entryList.forEach(entry -> {
-        if(entry.getA() == null){
-            printA();
-        }*/
+     /* Reject lead if it has an associated accepted status,
+                        # and it's been less than 30 days since scoring*/
+            /*if 'status' in locals():
+            if isinstance(leadid, basestring) and status == 'accepted' and totmin <= 43200:
+    leadac = '[%s] Lead was already accepted %s minutes ago'
+            logger.info(leadac,leadid,totmin)
+    message = 'Code 32: Unmet purchase criteria'
+            # sys.stdout.flush()
+            sys.stderr.flush()
+            return self.__reject__(message, pblead, leadid)*/
 
 
-
-
-
-
-
-
-
-
-
-    /*public  filterNotMandatoryFields() {
-        //return p -> p.getAge() > 18 && p.getGender().equalsIgnoreCase("F");
-        return (map) -> map.getKey() == "";
-    }*/
-
-    /*
-
-            if 'scorable' not in diffset:
-            if pblead['scorable'] not in ['0','1']:
-                diffset.add('scorable')
-        if 'is_military' not in diffset:
-            if pblead['is_military'] not in ['0','1']:
-                diffset.add('is_military')
-        if 'own_home' in pblead:
-            if pblead['own_home'] not in ['0','1']:
-                diffset.add('own_home')
-        if 'is_live' not in diffset:
-            if pblead['is_live']  not in ['0','1']:
-                diffset.add('is_live')
-        if 'buyin' not in diffset:
-            if pblead['buyin'] not in ['0','1']:
-                diffset.add('buyin')
-        if 'pay_frequency' not in diffset:
-            if pblead['pay_frequency'] not in ["BI_WEEKLY",  "WEEKLY", "TWICE_PER_MONTH", "MONTHLY", "OTHER"]:
-                diffset.add('pay_frequency')
-
-                if 'date_of_birth' not in diffset:
-            try:
-                dob = parse(pblead['date_of_birth'])
-                now = datetime.datetime.now()
-                diff = relativedelta(now, dob).years
-                if diff < 18:
-                    logger.info('Applicant is under 18')
-                    diffset.add('date_of_birth')
-            except Exception, e:
-                logger.error('date_of_birth problem')
-                logger.exception(e);
-                diffset.add('date_of_birth')
-
-                     if 'zip' not in diffset:
-            thezip = str(pblead['zip'][:5])
-            if thezip.isdigit() is False:
-                diffset.add('zip')
-
-     */
 }
