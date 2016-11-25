@@ -63,6 +63,8 @@ public class LeadHandler extends BaseController {
         PrePull prePull = new PrePull("LeadID",utilities.getageFromDOB(leadData.getDate_of_birth()),"D",leadData.getState(),leadData.getOwn_home(),leadData.getMonths_at_address(),leadData.getMonths_at_bank(),leadData.getPay_frequency(),leadData.getLoan_amount(),leadData.getMonthly_income());
         //Do prepull
         communicationService.doPrepullScore(prePull);
+        //Do Softpull
+        communicationService.doSoftpull(leadData);
 
         return leadData;
     }
