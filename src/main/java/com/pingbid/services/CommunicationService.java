@@ -7,6 +7,7 @@ import com.pingbid.model.PrePull;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 
@@ -17,9 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommunicationService {
 
-    private static final String PREPULL_URL = "http://test-de1.adfdata.net:8000/softpull_model/";
+    @Value("${prepullurl}")
+    private String PREPULL_URL;
 
-    private static final String SOFTPULL_URL = "http://test-de1.adfdata.net:8080/de-service/api/pb/offer/";
+    @Value("${softpullurl}")
+    private String SOFTPULL_URL;
 
     public void doPrepullScore(PrePull prePull){
 
