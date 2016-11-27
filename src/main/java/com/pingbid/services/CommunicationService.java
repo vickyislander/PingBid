@@ -7,6 +7,7 @@ import com.pingbid.model.PrePull;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class CommunicationService {
 
+    @Autowired
+    public CommunicateUtils communicateUtils;
+
     @Value("${prepullurl}")
     private String PREPULL_URL;
 
@@ -27,7 +31,7 @@ public class CommunicationService {
     public void doPrepullScore(PrePull prePull){
 
         try {
-            prePull.setPrePull_score(new CommunicateUtils().post(new URL(PREPULL_URL), prePull));
+            prePull.setPrePull_score(communicateUtils.post(new URL(PREPULL_URL), prePull));
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -37,7 +41,7 @@ public class CommunicationService {
     public void doSoftpull(CreateLead lead){
 
         try {
-             new CommunicateUtils().post(new URL(SOFTPULL_URL), lead);
+            communicateUtils.post(new URL(SOFTPULL_URL), lead);
         } catch (MalformedURLException e) {
              e.printStackTrace();
         }

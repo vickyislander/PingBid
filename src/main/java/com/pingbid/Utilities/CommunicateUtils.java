@@ -9,6 +9,7 @@ import com.pingbid.model.CreateLead;
 import com.pingbid.model.PrePull;
 import javassist.scopedpool.SoftValueHashMap;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -18,6 +19,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class CommunicateUtils {
 
     @Value("${deuser}")
