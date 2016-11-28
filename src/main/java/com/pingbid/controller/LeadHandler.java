@@ -2,11 +2,8 @@ package com.pingbid.controller;
 
 import com.pingbid.Utilities.CommonUtils;
 import com.pingbid.model.*;
-import com.pingbid.services.CommunicationService;
+import com.pingbid.services.*;
 import com.pingbid.databaseModel.Lead;
-import com.pingbid.services.Contactservice;
-import com.pingbid.services.InputDataFilterService;
-import com.pingbid.services.Leadservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,6 +37,9 @@ public class LeadHandler extends BaseController {
     @Autowired
     private InputDataFilterService inputDataFilterService;
 
+    @Autowired
+    private SoftpullService softpullService;
+
     @RequestMapping(method= RequestMethod.POST,value="/pinglead", consumes="text/plain",produces = "application/json")
     public CreateLead createLead(@RequestBody String createLead) {
         //split the string and save the values in map as key value pairs
@@ -63,8 +63,10 @@ public class LeadHandler extends BaseController {
         communicationService.doPrepullScore(prePull);
         //Do Softpull
         Softpull softpull = communicationService.doSoftpull(leadData);
+        //check softpull scores
+        softpullService.checkConditions(softpull);
         //send mail
-        EmailTrigger emailTrigger = communicationService.doSendMail(new SendMail(lead.getLeadID(),"PB"));
+        EmailTrigger emailTrigger = communicationService.doSendMail(new SendMail(lead.getLeadID()));
 
         return leadData;
     }

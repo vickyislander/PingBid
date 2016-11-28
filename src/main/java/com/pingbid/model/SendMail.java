@@ -8,9 +8,9 @@ public class SendMail {
     private final String leadid ;
     private final String channel;
 
-    public SendMail(String leadid,String channel){
+    public SendMail(String leadid){
         this.leadid = leadid;
-        this.channel = channel;
+        this.channel = "PB";
     }
 
     public String getLeadid() {
