@@ -1,16 +1,14 @@
 package com.pingbid.controller;
 
 import com.pingbid.Utilities.CommonUtils;
+import com.pingbid.model.*;
 import com.pingbid.services.CommunicationService;
 import com.pingbid.databaseModel.Lead;
-import com.pingbid.model.CreateLead;
-import com.pingbid.model.PrePull;
 import com.pingbid.services.Contactservice;
 import com.pingbid.services.InputDataFilterService;
 import com.pingbid.services.Leadservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,7 +62,9 @@ public class LeadHandler extends BaseController {
         //Do prepull
         communicationService.doPrepullScore(prePull);
         //Do Softpull
-        communicationService.doSoftpull(leadData);
+        Softpull softpull = communicationService.doSoftpull(leadData);
+        //send mail
+        EmailTrigger emailTrigger = communicationService.doSendMail(new SendMail(lead.getLeadID(),"PB"));
 
         return leadData;
     }

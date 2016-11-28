@@ -5,9 +5,10 @@ package com.pingbid.Utilities;
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pingbid.model.CreateLead;
-import com.pingbid.model.PrePull;
+import com.pingbid.model.*;
 import javassist.scopedpool.SoftValueHashMap;
+import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -29,14 +30,14 @@ public class CommunicateUtils {
     String credentials = username+":"+password;
 
         //do prepull
-        public Integer post(URL postUrl, PrePull prePull){
+        public PrePull post(String postUrl, PrePull prePull){
 
-            int prepullScore =0;
+            PrePull prepullScore =null;
 
             try{
 
                 // 1. Open connection
-                HttpURLConnection conn = (HttpURLConnection) postUrl.openConnection();
+                HttpURLConnection conn = (HttpURLConnection) new URL(postUrl).openConnection();
 
                 // 2. Specify POST method
                 conn.setRequestMethod("POST");
@@ -66,25 +67,25 @@ public class CommunicateUtils {
                 System.out.println("\nSending 'POST' request to URL : " + postUrl);
                 System.out.println("Response Code : " + responseCode);
 
-                prepullScore = mapper.readValue(conn.getInputStream(),Integer.class);
+                prepullScore = mapper.readValue(conn.getInputStream(),PrePull.class);
 
 
             } catch (IOException e) {
-                e.printStackTrace();
+                ExceptionUtils.getStackTrace(e);
             }
 
             return prepullScore;
         }
 
-    //do softpull
-    public Map<String, ?> post(URL postUrl, CreateLead lead){
 
-        Map<String,?> data = null;
+    public Softpull post(String postUrl, CreateLead lead){
+
+        Softpull softpull = null;
 
         try{
 
             // 1. Open connection
-            HttpURLConnection conn = (HttpURLConnection) postUrl.openConnection();
+            HttpURLConnection conn = (HttpURLConnection) new URL(postUrl).openConnection();
 
             // 2. Specify POST method
             conn.setRequestMethod("POST");
@@ -117,14 +118,68 @@ public class CommunicateUtils {
             System.out.println("\nSending 'POST' request to URL : " + postUrl);
             System.out.println("Response Code : " + responseCode);
 
-            data= mapper.readValue(conn.getInputStream(),Map.class);
+            softpull = mapper.readValue(conn.getInputStream(),Softpull.class);
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            ExceptionUtils.getStackTrace(e);
+        } catch (Exception e){
+            ExceptionUtils.getStackTrace(e);
         }
 
-        return data;
+        return softpull;
+    }
+
+    public EmailTrigger post(String postUrl, SendMail sendMail){
+
+        EmailTrigger emailTrigger = null;
+
+        try{
+
+            // 1. Open connection
+            HttpURLConnection conn = (HttpURLConnection) new URL(postUrl).openConnection();
+
+            // 2. Specify POST method
+            conn.setRequestMethod("POST");
+
+            // 3. Set the headers
+            conn.setRequestProperty("Content-Type", "application/json");
+
+            // 4.Set authorization headers
+            conn.setRequestProperty("Authorization", "Basic "+ Base64.getEncoder().encodeToString(credentials.getBytes(StandardCharsets.UTF_8)));
+
+            conn.setDoOutput(true);
+
+            // 5. Use Jackson object mapper to convert java object into JSON
+            ObjectMapper mapper = new ObjectMapper();
+
+            // 6. Get connection output stream
+            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
+
+            // 7. Copy Content "JSON" into
+            mapper.writeValue((DataOutput) wr, sendMail);
+
+            // 8. Send the request
+            wr.flush();
+
+            // 9. close
+            wr.close();
+
+            // 6. Get the response
+            int responseCode = conn.getResponseCode();
+            System.out.println("\nSending 'POST' request to URL : " + postUrl);
+            System.out.println("Response Code : " + responseCode);
+
+            emailTrigger = mapper.readValue(conn.getInputStream(),EmailTrigger.class);
+
+
+        } catch (IOException e) {
+            ExceptionUtils.getStackTrace(e);
+        } catch (Exception e){
+            ExceptionUtils.getStackTrace(e);
+        }
+
+        return emailTrigger;
     }
 
 }

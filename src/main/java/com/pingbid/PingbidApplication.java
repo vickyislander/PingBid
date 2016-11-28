@@ -139,6 +139,10 @@ public class PingbidApplication {
 	"email": "SShanmugam@applieddatafinance.com"
 }
 
+{"status":{"value":"No Offer","id":202,"optionalValue":""},"scores":
+{"softpull_score":"9998","ficco":"+586","model2":"890","cv":"+650","model1":"982","softpull_score_cutoff":"14","conversion_score":"402","vantage":"+650","ensmbleModel":"956"}}
+
+
 //email trigger
 
 {

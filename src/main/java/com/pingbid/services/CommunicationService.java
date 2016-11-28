@@ -1,8 +1,7 @@
 package com.pingbid.services;
 
 import com.pingbid.Utilities.CommunicateUtils;
-import com.pingbid.model.CreateLead;
-import com.pingbid.model.PrePull;
+import com.pingbid.model.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,24 +27,19 @@ public class CommunicationService {
     @Value("${softpullurl}")
     private String SOFTPULL_URL;
 
-    public void doPrepullScore(PrePull prePull){
+    @Value("${emailer}")
+    private String EMAIL_URL;
 
-        try {
-            prePull.setPrePull_score(communicateUtils.post(new URL(PREPULL_URL), prePull));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
 
+    public PrePull doPrepullScore(PrePull prePull){
+         return communicateUtils.post(PREPULL_URL, prePull);
     }
 
-    public void doSoftpull(CreateLead lead){
-
-        try {
-            communicateUtils.post(new URL(SOFTPULL_URL), lead);
-        } catch (MalformedURLException e) {
-             e.printStackTrace();
-        }
-
+    public Softpull doSoftpull(CreateLead lead) {
+        return communicateUtils.post(SOFTPULL_URL, lead);
     }
 
+    public EmailTrigger doSendMail(SendMail sendMail){
+        return communicateUtils.post(EMAIL_URL,sendMail);
+    }
 }
