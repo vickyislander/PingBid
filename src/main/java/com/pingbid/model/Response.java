@@ -4,12 +4,12 @@ package com.pingbid.model;
 /**
  * Created by rvignesh on 10/20/2016.
  */
-public class Accept {
+public class Response {
 
 
     private final String leadID;
     private final String status;
-    private final String seller_group;
+    private final int seller_group;
     private final String first_name;
     private final String last_name;
     private final String email;
@@ -17,7 +17,7 @@ public class Accept {
     private final String redirect_url;
 
 
-    public Accept(String leadID, String status, String seller_group, String first_name, String last_name, String email, String transaction_time, String redirect_url)
+    public Response(String leadID, String status, int seller_group, String first_name, String last_name, String email, String transaction_time, String redirect_url)
     {
         this.leadID = leadID;
         this.status = status;
@@ -37,7 +37,7 @@ public class Accept {
         return status;
     }
 
-    public String getSeller_group() {
+    public int getSeller_group() {
         return seller_group;
     }
 
@@ -61,5 +61,18 @@ public class Accept {
         return redirect_url;
     }
 
+    @Override
+    public String toString() {
+        return "Response{" +
+                "leadID='" + leadID + '\'' +
+                ", status='" + status + '\'' +
+                ", seller_group=" + seller_group +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", email='" + email + '\'' +
+                ", transaction_time='" + transaction_time + '\'' +
+                ", redirect_url='" + redirect_url + '\'' +
+                '}';
+    }
 }
 

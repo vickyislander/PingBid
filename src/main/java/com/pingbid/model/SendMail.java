@@ -20,4 +20,12 @@ public class SendMail {
     public String getChannel() {
         return channel;
     }
+
+    @Override
+    public String toString() {
+        return "SendMail{" +
+                "leadid='" + leadid + '\'' +
+                ", channel='" + channel + '\'' +
+                '}';
+    }
 }

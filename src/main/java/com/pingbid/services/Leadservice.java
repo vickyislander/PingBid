@@ -4,6 +4,8 @@ import com.pingbid.PingbidApplication;
 import com.pingbid.databaseModel.Lead;
 import com.pingbid.databaseRepositories.ContactRepository;
 import com.pingbid.databaseRepositories.LeadRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.metrics.CounterService;
 import org.springframework.cache.annotation.CacheEvict;
@@ -22,13 +24,10 @@ import java.util.List;
 @Service
 public class Leadservice {
 
+    @Autowired
     private LeadRepository leadRepository;
 
-    @Autowired
-
-    public Leadservice(LeadRepository leadRepository) {
-        this.leadRepository = leadRepository;
-    }
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostConstruct
     public void init() {

@@ -10,90 +10,85 @@ import java.util.Map;
  * Created by vignesh on 9/22/2016.
  */
 
-@JsonIgnoreProperties( {"client_ip","loan_amount","ssn","date_of_birth","address1","city","zip","state","country_code","phone_home",
-"is_military","drivers_license_state","drivers_license_number","own_home","months_at_address","income_type","job_title","pay_per_period",
-"monthly_income","pay_frequency","pay_day1","pay_day2","employer_name","months_employed","bank","bank_phone months_at_bank",
-"bank_account_type", "direct_deposit","contact_time","originating_url","client_url","user_agent","is_live","price","buyin","subid","scorable"})
-
 public class CreateLead {
 
-    @JsonIgnore
+
     private final String client_ip;
-    @JsonIgnore
+
     private final int loan_amount;
-    @JsonIgnore
+
     private final String ssn;
-    @JsonIgnore
+
     private final String date_of_birth;
-    @JsonIgnore
+
     private final String address1;
-    @JsonIgnore
+
     private final String city;
-    @JsonIgnore
+
     private final String zip;
-    @JsonIgnore
+
     private final String state;
-    @JsonIgnore
+
     private final String country_code;
-    @JsonIgnore
+
     private final String phone_home;
-    @JsonIgnore
+
     private final String phone_work;
-    @JsonIgnore
+
     private final String is_military;
-    @JsonIgnore
+
     private final String drivers_license_state;
-    @JsonIgnore
+
     private final String drivers_license_number;
-    @JsonIgnore
+
     private final String own_home;
-    @JsonIgnore
+
     private final int months_at_address;
-    @JsonIgnore
+
     private final String income_type;
-    @JsonIgnore
+
     private final String job_title;
-    @JsonIgnore
+
     private final String pay_per_period;
-    @JsonIgnore
+
     private final int monthly_income;
-    @JsonIgnore
+
     private final String pay_frequency;
-    @JsonIgnore
+
     private final String pay_day1;
-    @JsonIgnore
+
     private final String pay_day2;
-    @JsonIgnore
+
     private final String employer_name;
-    @JsonIgnore
+
     private final int months_employed;
-    @JsonIgnore
+
     private final String bank;
-    @JsonIgnore
+
     private final String bank_phone;
-    @JsonIgnore
+
     private final int months_at_bank;
-    @JsonIgnore
+
     private final String bank_account_type;
-    @JsonIgnore
+
     private final String direct_deposit;
-    @JsonIgnore
+
     private final String contact_time;
-    @JsonIgnore
+
     private final String originating_url;
-    @JsonIgnore
+
     private final String client_url;
-    @JsonIgnore
+
     private final String user_agent;
-    @JsonIgnore
+
     private final String is_live;
-    @JsonIgnore
+
     private final String price;
-    @JsonIgnore
+
     private final String buyin;
-    @JsonIgnore
+
     private final String subid;
-    @JsonIgnore
+
     private final String scorable;
 
     private final String seller_group;
@@ -349,5 +344,58 @@ public class CreateLead {
 
     public String getMessage() {
         return message;
+    }
+
+    @Override
+    public String toString() {
+        return "CreateLead{" +
+                "client_ip='" + client_ip + '\'' +
+                ", loan_amount=" + loan_amount +
+                ", ssn='" + ssn + '\'' +
+                ", date_of_birth='" + date_of_birth + '\'' +
+                ", address1='" + address1 + '\'' +
+                ", city='" + city + '\'' +
+                ", zip='" + zip + '\'' +
+                ", state='" + state + '\'' +
+                ", country_code='" + country_code + '\'' +
+                ", phone_home='" + phone_home + '\'' +
+                ", phone_work='" + phone_work + '\'' +
+                ", is_military='" + is_military + '\'' +
+                ", drivers_license_state='" + drivers_license_state + '\'' +
+                ", drivers_license_number='" + drivers_license_number + '\'' +
+                ", own_home='" + own_home + '\'' +
+                ", months_at_address=" + months_at_address +
+                ", income_type='" + income_type + '\'' +
+                ", job_title='" + job_title + '\'' +
+                ", pay_per_period='" + pay_per_period + '\'' +
+                ", monthly_income=" + monthly_income +
+                ", pay_frequency='" + pay_frequency + '\'' +
+                ", pay_day1='" + pay_day1 + '\'' +
+                ", pay_day2='" + pay_day2 + '\'' +
+                ", employer_name='" + employer_name + '\'' +
+                ", months_employed=" + months_employed +
+                ", bank='" + bank + '\'' +
+                ", bank_phone='" + bank_phone + '\'' +
+                ", months_at_bank=" + months_at_bank +
+                ", bank_account_type='" + bank_account_type + '\'' +
+                ", direct_deposit='" + direct_deposit + '\'' +
+                ", contact_time='" + contact_time + '\'' +
+                ", originating_url='" + originating_url + '\'' +
+                ", client_url='" + client_url + '\'' +
+                ", user_agent='" + user_agent + '\'' +
+                ", is_live='" + is_live + '\'' +
+                ", price='" + price + '\'' +
+                ", buyin='" + buyin + '\'' +
+                ", subid='" + subid + '\'' +
+                ", scorable='" + scorable + '\'' +
+                ", seller_group='" + seller_group + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", email='" + email + '\'' +
+                ", LeadID='" + LeadID + '\'' +
+                ", transaction_time=" + transaction_time +
+                ", status='" + status + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

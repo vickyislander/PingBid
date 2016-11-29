@@ -53,6 +53,16 @@ public class Reject {
         return transaction_time;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "Reject{" +
+                "leadID='" + leadID + '\'' +
+                ", status='" + status + '\'' +
+                ", seller_group='" + seller_group + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", email='" + email + '\'' +
+                ", transaction_time='" + transaction_time + '\'' +
+                '}';
+    }
 }

@@ -90,4 +90,13 @@ public class Status {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public String toString() {
+        return "Status{" +
+                "value='" + value + '\'' +
+                ", id=" + id +
+                ", optionalValue='" + optionalValue + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 }

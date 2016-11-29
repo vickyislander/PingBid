@@ -1,6 +1,8 @@
 package com.pingbid;
 
 import com.google.common.cache.CacheBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
@@ -9,6 +11,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.guava.GuavaCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManager;
 
@@ -23,9 +26,10 @@ public class PingbidApplication {
 		SpringApplication.run(PingbidApplication.class, args);
 	}
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	@Bean
 	public CacheManager cacheManager() {
-
 			GuavaCacheManager guavaCacheManager = new GuavaCacheManager();
 			guavaCacheManager.setCacheBuilder(CacheBuilder.newBuilder());
 			return guavaCacheManager;

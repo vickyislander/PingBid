@@ -1081,4 +1081,109 @@ public class Lead {
                 append(getId(), lead.getId()).
                 isEquals();
     }
+
+    @Override
+    public String toString() {
+        return "Lead{" +
+                "id=" + id +
+                ", leadID='" + leadID + '\'' +
+                ", vendorLeadid='" + vendorLeadid + '\'' +
+                ", campaign='" + campaign + '\'' +
+                ", promoId=" + promoId +
+                ", subpromoId='" + subpromoId + '\'' +
+                ", subId='" + subId + '\'' +
+                ", buyIn=" + buyIn +
+                ", scorable=" + scorable +
+                ", status='" + status + '\'' +
+                ", emailed=" + emailed +
+                ", email_resp='" + email_resp + '\'' +
+                ", message='" + message + '\'' +
+                ", price=" + price +
+                ", scoredPrice=" + scoredPrice +
+                ", priceColumn='" + priceColumn + '\'' +
+                ", tableVersion=" + tableVersion +
+                ", prepullScore=" + prepullScore +
+                ", prepullScoreCutoff=" + prepullScoreCutoff +
+                ", conversionScore=" + conversionScore +
+                ", modelscoreV1=" + modelscoreV1 +
+                ", v1Tier=" + v1Tier +
+                ", vantageScore=" + vantageScore +
+                ", vantageTier=" + vantageTier +
+                ", bidTable='" + bidTable + '\'' +
+                ", strategy='" + strategy + '\'' +
+                ", clientIp='" + clientIp + '\'' +
+                ", loanAmount=" + loanAmount +
+                ", gender='" + gender + '\'' +
+                ", salutation='" + salutation + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", alternateEmail='" + alternateEmail + '\'' +
+                ", ssn='" + ssn + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", address1='" + address1 + '\'' +
+                ", address2='" + address2 + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zip='" + zip + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", phoneHome=" + phoneHome +
+                ", phoneWork=" + phoneWork +
+                ", phoneWorkExtension=" + phoneWorkExtension +
+                ", mobile=" + mobile +
+                ", fax=" + fax +
+                ", isMilitary=" + isMilitary +
+                ", driversLicenseState='" + driversLicenseState + '\'' +
+                ", ownHome='" + ownHome + '\'' +
+                ", monthsAtAddress=" + monthsAtAddress +
+                ", monthlyResidenceCost=" + monthlyResidenceCost +
+                ", incomeType='" + incomeType + '\'' +
+                ", jobTitle='" + jobTitle + '\'' +
+                ", payPerPeriod=" + payPerPeriod +
+                ", monthlyIncome=" + monthlyIncome +
+                ", payFrequency='" + payFrequency + '\'' +
+                ", payDay1='" + payDay1 + '\'' +
+                ", payDay2='" + payDay2 + '\'' +
+                ", employerName='" + employerName + '\'' +
+                ", employerAddress='" + employerAddress + '\'' +
+                ", employerCity='" + employerCity + '\'' +
+                ", employerState='" + employerState + '\'' +
+                ", employerZip='" + employerZip + '\'' +
+                ", monthsEmployed=" + monthsEmployed +
+                ", supervisorName='" + supervisorName + '\'' +
+                ", supervisorPhoneExt='" + supervisorPhoneExt + '\'' +
+                ", bank='" + bank + '\'' +
+                ", bankPhone=" + bankPhone +
+                ", monthsAtBank=" + monthsAtBank +
+                ", bankRoutingNumber=" + bankRoutingNumber +
+                ", bankAccountNumber=" + bankAccountNumber +
+                ", bankAccountType='" + bankAccountType + '\'' +
+                ", directDeposit=" + directDeposit +
+                ", refererFirstName1='" + refererFirstName1 + '\'' +
+                ", refererLastName1='" + refererLastName1 + '\'' +
+                ", refererPhone1='" + refererPhone1 + '\'' +
+                ", refererRelation1='" + refererRelation1 + '\'' +
+                ", refererFirstName2='" + refererFirstName2 + '\'' +
+                ", refererLastName2='" + refererLastName2 + '\'' +
+                ", refererPhone2='" + refererPhone2 + '\'' +
+                ", refererRelation2='" + refererRelation2 + '\'' +
+                ", refererFirstName3='" + refererFirstName3 + '\'' +
+                ", refererLastName3='" + refererLastName3 + '\'' +
+                ", refererPhone3='" + refererPhone3 + '\'' +
+                ", refererRelation3='" + refererRelation3 + '\'' +
+                ", contactTime=" + contactTime +
+                ", smsOptin='" + smsOptin + '\'' +
+                ", originatingUrl='" + originatingUrl + '\'' +
+                ", clientUrl='" + clientUrl + '\'' +
+                ", userAgent='" + userAgent + '\'' +
+                ", isLive=" + isLive +
+                ", sellerGroup=" + sellerGroup +
+                ", createTime='" + createTime + '\'' +
+                ", updateTime='" + updateTime + '\'' +
+                ", transactionTime='" + transactionTime + '\'' +
+                ", redirectUrl='" + redirectUrl + '\'' +
+                ", softpull='" + softpull + '\'' +
+                ", rawdata='" + rawdata + '\'' +
+                '}';
+    }
 }

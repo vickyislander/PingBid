@@ -86,4 +86,21 @@ public class PrePull {
         this.prePull_score = prePull_score;
     }
 
+    @Override
+    public String toString() {
+        return "PrePull{" +
+                "leadid='" + leadid + '\'' +
+                ", age=" + age +
+                ", fico_pool='" + fico_pool + '\'' +
+                ", state='" + state + '\'' +
+                ", own_home='" + own_home + '\'' +
+                ", months_at_address=" + months_at_address +
+                ", months_at_bank=" + months_at_bank +
+                ", pay_frequency='" + pay_frequency + '\'' +
+                ", loan_amount=" + loan_amount +
+                ", monthly_income=" + monthly_income +
+                ", prePull_score=" + prePull_score +
+                '}';
+    }
+
 }

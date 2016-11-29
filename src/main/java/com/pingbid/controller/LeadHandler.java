@@ -4,6 +4,8 @@ import com.pingbid.Utilities.CommonUtils;
 import com.pingbid.model.*;
 import com.pingbid.services.*;
 import com.pingbid.databaseModel.Lead;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +19,7 @@ import java.util.Map;
 /**
  * Created by rvignesh on 9/23/2016.
  */
+
 
 @RestController
 @EnableCaching
@@ -40,8 +43,13 @@ public class LeadHandler extends BaseController {
     @Autowired
     private SoftpullService softpullService;
 
+    @Autowired
+    private EmailService emailService;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @RequestMapping(method= RequestMethod.POST,value="/pinglead", consumes="text/plain",produces = "application/json")
-    public CreateLead createLead(@RequestBody String createLead) {
+    public Response createLead(@RequestBody String createLead) {
         //split the string and save the values in map as key value pairs
         Map<String,String> leadDetails = utilities.stringSplitter(createLead);
         //Generate leadid based on email,firstName,lastName,zipcode
@@ -56,7 +64,7 @@ public class LeadHandler extends BaseController {
         Lead lead = new Lead(leadDetails);
         //save the lead object to DB
         leadservice.save(lead);
-        System.out.println(leadData.getStatus()+" : "+leadData.getTransaction_time()+" : "+leadData.getMessage());
+        logger.info(leadData.getStatus()+" : "+leadData.getTransaction_time()+" : "+leadData.getMessage());
         //Intialize prePull POJO class
         PrePull prePull = new PrePull("LeadID",utilities.getageFromDOB(leadData.getDate_of_birth()),"D",leadData.getState(),leadData.getOwn_home(),leadData.getMonths_at_address(),leadData.getMonths_at_bank(),leadData.getPay_frequency(),leadData.getLoan_amount(),leadData.getMonthly_income());
         //Do prepull
@@ -64,11 +72,11 @@ public class LeadHandler extends BaseController {
         //Do Softpull
         Softpull softpull = communicationService.doSoftpull(leadData);
         //check softpull scores
-        softpullService.checkConditions(softpull);
+        Response response = softpullService.checkConditions(softpull,lead);
         //send mail
         EmailTrigger emailTrigger = communicationService.doSendMail(new SendMail(lead.getLeadID()));
-
-        return leadData;
+        emailService.checkEmailStatus(emailTrigger,lead);
+        return response;
     }
 
 }

@@ -267,5 +267,31 @@ public class Contact {
         this.phoneType2 = phoneType2;
     }
 
-
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "contactID=" + contactID +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", middleName='" + middleName + '\'' +
+                ", suffix='" + suffix + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", state='" + state + '\'' +
+                ", zipcode='" + zipcode + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", phone=" + phone +
+                ", ssn='" + ssn + '\'' +
+                ", password='" + password + '\'' +
+                ", military='" + military + '\'' +
+                ", createDateTime='" + createDateTime + '\'' +
+                ", updateDateTime='" + updateDateTime + '\'' +
+                ", id='" + id + '\'' +
+                ", lead_id='" + lead_id + '\'' +
+                ", secondaryPhone=" + secondaryPhone +
+                ", phoneType1=" + phoneType1 +
+                ", phoneType2=" + phoneType2 +
+                '}';
+    }
 }

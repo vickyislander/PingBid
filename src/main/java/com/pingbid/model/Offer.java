@@ -184,5 +184,19 @@ public class Offer {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "amount=" + amount +
+                ", rate=" + rate +
+                ", term=" + term +
+                ", isFeatured=" + isFeatured +
+                ", isSelected=" + isSelected +
+                ", monthlyPayment=" + monthlyPayment +
+                ", biWeeklyPayment=" + biWeeklyPayment +
+                ", offerId=" + offerId +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 }
 

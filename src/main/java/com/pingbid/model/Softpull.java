@@ -107,5 +107,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
             this.additionalProperties.put(name, value);
         }
 
+        @Override
+        public String toString() {
+            return "Softpull{" +
+                    "offers=" + offers +
+                    ", status=" + status +
+                    ", scores=" + scores +
+                    ", additionalProperties=" + additionalProperties +
+                    '}';
+        }
     }
 

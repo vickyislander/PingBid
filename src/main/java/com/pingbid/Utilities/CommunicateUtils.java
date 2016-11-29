@@ -9,7 +9,10 @@ import com.pingbid.model.*;
 import javassist.scopedpool.SoftValueHashMap;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.hibernate.validator.constraints.Email;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -20,7 +23,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
-@Service
+@Component
 public class CommunicateUtils {
 
     @Value("${deuser}")
@@ -28,6 +31,8 @@ public class CommunicateUtils {
     @Value("${depass}")
     String password;
     String credentials = username+":"+password;
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
         //do prepull
         public PrePull post(String postUrl, PrePull prePull){
@@ -64,14 +69,16 @@ public class CommunicateUtils {
 
                 // 6. Get the response
                 int responseCode = conn.getResponseCode();
-                System.out.println("\nSending 'POST' request to URL : " + postUrl);
-                System.out.println("Response Code : " + responseCode);
+                logger.info("\nSending 'POST' request to URL : " + postUrl);
+                logger.info("Response Code : " + responseCode);
 
                 prepullScore = mapper.readValue(conn.getInputStream(),PrePull.class);
 
 
             } catch (IOException e) {
-                ExceptionUtils.getStackTrace(e);
+                logger.error(ExceptionUtils.getStackTrace(e));
+            } catch (Exception e){
+                logger.error(ExceptionUtils.getStackTrace(e));
             }
 
             return prepullScore;
@@ -115,16 +122,16 @@ public class CommunicateUtils {
 
             // 6. Get the response
             int responseCode = conn.getResponseCode();
-            System.out.println("\nSending 'POST' request to URL : " + postUrl);
-            System.out.println("Response Code : " + responseCode);
+            logger.info("\nSending 'POST' request to URL : " + postUrl);
+            logger.info("Response Code : " + responseCode);
 
             softpull = mapper.readValue(conn.getInputStream(),Softpull.class);
 
 
         } catch (IOException e) {
-            ExceptionUtils.getStackTrace(e);
+            logger.error(ExceptionUtils.getStackTrace(e));
         } catch (Exception e){
-            ExceptionUtils.getStackTrace(e);
+            logger.error(ExceptionUtils.getStackTrace(e));
         }
 
         return softpull;
@@ -167,16 +174,16 @@ public class CommunicateUtils {
 
             // 6. Get the response
             int responseCode = conn.getResponseCode();
-            System.out.println("\nSending 'POST' request to URL : " + postUrl);
-            System.out.println("Response Code : " + responseCode);
+            logger.info("\nSending 'POST' request to URL : " + postUrl);
+            logger.info("Response Code : " + responseCode);
 
             emailTrigger = mapper.readValue(conn.getInputStream(),EmailTrigger.class);
 
 
         } catch (IOException e) {
-            ExceptionUtils.getStackTrace(e);
+            logger.info(ExceptionUtils.getStackTrace(e));
         } catch (Exception e){
-            ExceptionUtils.getStackTrace(e);
+            logger.info(ExceptionUtils.getStackTrace(e));
         }
 
         return emailTrigger;

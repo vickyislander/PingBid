@@ -3,6 +3,8 @@ package com.pingbid.Utilities;
 import com.pingbid.controller.LeadHandler;
 import com.pingbid.databaseModel.Lead;
 import com.pingbid.databaseRepositories.LeadRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.SystemEnvironmentPropertySource;
 import org.springframework.stereotype.Component;
 
@@ -25,6 +27,8 @@ import static java.util.stream.Collectors.groupingBy;
 
 @Component
 public class CommonUtils {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     Random random = new Random();
 
@@ -58,6 +62,8 @@ public class CommonUtils {
     } */
 
     public Map<String,String> stringSplitter(String createLead){
+
+        logger.info(createLead);
 
         Stream<String> words = Stream.of(createLead.split("&"));
 

@@ -1,18 +1,21 @@
 package com.pingbid.services;
 
 import com.pingbid.Utilities.CommonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
- * Created by rvignesh on 10/15/2016. MIrth64$
+ * Created by rvignesh on 10/15/2016.
  */
+@Service
 public class InputDataFilterService {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private CommonUtils commonUtils;
@@ -23,23 +26,30 @@ public class InputDataFilterService {
 
     public void checkConditions(Map<String, String> dataToBeFiltered) {
 
-        Map<String, String> filteredData = dataToBeFiltered.entrySet().stream()
-                .filter((map) -> map.getKey().contentEquals("date_of_birth") && Integer.parseInt(map.getValue()) > 18)
-                .filter((map) -> map.getKey().contentEquals("scorable") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
-                .filter((map) -> map.getKey().contentEquals("is_military") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
-                .filter((map) -> map.getKey().contentEquals("own_home") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
-                .filter((map) -> map.getKey().contentEquals("is_live") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
-                .filter((map) -> map.getKey().contentEquals("buyin") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
-                .filter((map) -> map.getKey().contentEquals("pay_frequency") && map.getValue().equalsIgnoreCase("BI_WEEKLY") || map.getValue().equalsIgnoreCase("WEEKLY") || map.getValue().equalsIgnoreCase("TWICE_PER_MONTH") || map.getValue().equalsIgnoreCase("MONTHLY") || map.getValue().equalsIgnoreCase("OTHER"))
-                .filter((map) -> map.getKey().contentEquals("zip") && commonUtils.isInteger(map.getValue()))
-                .filter((map) -> map.getKey().contentEquals("zip") && map.getValue().length() == 5)
-                .filter((map) -> map.getKey().contentEquals("ssn") && map.getValue().length() == 9)
-                .filter((map) -> map.getKey().contentEquals("ssn") && commonUtils.isInteger(map.getValue()))
-                .filter((map) -> map.getKey().contentEquals("phone_home") && commonUtils.isInteger(map.getValue()))
-                .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+        try {
 
-        if (message != "")
+            Map<String, String> filteredData = dataToBeFiltered.entrySet().stream()
+                    .filter((map) -> map.getKey().contentEquals("date_of_birth") && commonUtils.getageFromDOB(map.getValue()) > 18)
+                    .filter((map) -> map.getKey().contentEquals("scorable") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
+                    .filter((map) -> map.getKey().contentEquals("is_military") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
+                    .filter((map) -> map.getKey().contentEquals("own_home") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
+                    .filter((map) -> map.getKey().contentEquals("is_live") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
+                    .filter((map) -> map.getKey().contentEquals("buyin") && Integer.parseInt(map.getValue()) == 0 || Integer.parseInt(map.getValue()) == 1)
+                    .filter((map) -> map.getKey().contentEquals("pay_frequency") && map.getValue().equalsIgnoreCase("BI_WEEKLY") || map.getValue().equalsIgnoreCase("WEEKLY") || map.getValue().equalsIgnoreCase("TWICE_PER_MONTH") || map.getValue().equalsIgnoreCase("MONTHLY") || map.getValue().equalsIgnoreCase("OTHER"))
+                    .filter((map) -> map.getKey().contentEquals("zip") && commonUtils.isInteger(map.getValue()))
+                    .filter((map) -> map.getKey().contentEquals("zip") && map.getValue().length() == 5)
+                    .filter((map) -> map.getKey().contentEquals("ssn") && map.getValue().length() == 9)
+                    .filter((map) -> map.getKey().contentEquals("ssn") && commonUtils.isInteger(map.getValue()))
+                    .filter((map) -> map.getKey().contentEquals("phone_home") && commonUtils.isInteger(map.getValue()))
+                    .collect(Collectors.toMap(p -> p.getKey(), p -> p.getValue()));
+
+            if (message != "")
+                logger.error("Invalid contact details " + message);
             throw new RuntimeException("Invalid contact details " + message);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
     }
@@ -59,17 +69,4 @@ public class InputDataFilterService {
             message = "Enter valid data in fields : " + message;
         }
     }
-
-     /* Reject lead if it has an associated accepted status,
-                        # and it's been less than 30 days since scoring*/
-            /*if 'status' in locals():
-            if isinstance(leadid, basestring) and status == 'accepted' and totmin <= 43200:
-    leadac = '[%s] Lead was already accepted %s minutes ago'
-            logger.info(leadac,leadid,totmin)
-    message = 'Code 32: Unmet purchase criteria'
-            # sys.stdout.flush()
-            sys.stderr.flush()
-            return self.__reject__(message, pblead, leadid)*/
-
-
 }

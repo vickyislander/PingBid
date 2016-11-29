@@ -46,4 +46,17 @@ public class EmailTrigger {
         return LeadID;
     }
 
+    @Override
+    public String toString() {
+        return "EmailTrigger{" +
+                "status='" + status + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", redirect_url='" + redirect_url + '\'' +
+                ", seller_group='" + seller_group + '\'' +
+                ", transaction_time='" + transaction_time + '\'' +
+                ", email='" + email + '\'' +
+                ", LeadID='" + LeadID + '\'' +
+                '}';
+    }
 }

@@ -203,4 +203,19 @@ public class Scores {
         this.additionalProperties.put(name, value);
     }
 
+    @Override
+    public String toString() {
+        return "Scores{" +
+                "softpullScore='" + softpullScore + '\'' +
+                ", model2='" + model2 + '\'' +
+                ", cv='" + cv + '\'' +
+                ", model1='" + model1 + '\'' +
+                ", maxOffer='" + maxOffer + '\'' +
+                ", softpullScoreCutoff='" + softpullScoreCutoff + '\'' +
+                ", conversionScore='" + conversionScore + '\'' +
+                ", vantage='" + vantage + '\'' +
+                ", ensmbleModel='" + ensmbleModel + '\'' +
+                ", additionalProperties=" + additionalProperties +
+                '}';
+    }
 }
